@@ -5,12 +5,14 @@ import Control.Category.Unicode
 import Data.Bool
 import Data.Foldable (Foldable (foldr), all)
 import Data.Function (($), on)
+import Data.Functor
 import Data.Map (Map)
 import qualified Data.Map as Map
 import Data.Maybe
 import Data.Monoid
 import Data.Ord
 import Data.Traversable
+import Data.Tuple
 import Numeric.Algebra
 import Numeric.Decidable.Zero
 import Numeric.Domain.Euclidean hiding (degree)
@@ -86,6 +88,18 @@ formalDiff α (Polynom cs) = fromList [(γ, foldr (.*) b (liftA2 facQuot β γ))
                                         | (β, b) <- Map.assocs cs,
                                           Just γ <- [traverse2 pminus β α]]
   where facQuot n m = product [m+1..n]
+
+leadingMonom :: DecidableZero a => Polynom α a -> Maybe α
+leadingMonom = fmap fst ∘ leadingTerm
+
+leadingTerm :: DecidableZero a => Polynom α a -> Maybe (α, a)
+leadingTerm (Polynom cs) = fst <$> (Map.maxViewWithKey ∘ Map.filter (not ∘ isZero)) cs
+
+leadingTerm' :: (Ord α, Monoid α, Abelian a, Monoidal a) => Polynom α a -> Polynom α a
+leadingTerm' = fromList ∘ pure ∘ fromMaybe (mempty, zero) ∘ \ (Polynom cs) -> fst <$> Map.maxViewWithKey cs
+
+timesMonom :: (Ord α, Semigroup α) => α -> Polynom α a -> Polynom α a
+timesMonom α (Polynom as) = Polynom (Map.mapKeys (α <>) as)
 
 fromList :: (Ord α, Abelian a) => [(α, a)] -> Polynom α a
 fromList = Polynom ∘ Map.fromListWith (+)

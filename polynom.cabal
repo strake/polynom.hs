@@ -11,7 +11,7 @@ cabal-version:       >=1.10
 
 library
   exposed-modules:     Data.Polynom
-  other-modules:       Data.Polynom.Impl, Util
+  other-modules:       Data.Polynom.Gröbner, Data.Polynom.Impl, Util
   default-extensions:  NoImplicitPrelude, MultiParamTypeClasses, FlexibleContexts, FlexibleInstances, ConstraintKinds
   other-extensions:    UndecidableInstances
   build-depends:       base >=4.8 && <4.9, base-unicode-symbols >=0.2 && <0.3, algebra >=4.2 && <4.3, containers >=0.5 && <0.6
