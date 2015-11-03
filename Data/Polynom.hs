@@ -1,3 +1,3 @@
-module Data.Polynom (Polynom, degree, content, primPart, formalDiff) where
+module Data.Polynom (Polynom, fromList, degree, content, primPart, formalDiff) where
 
 import Data.Polynom.Impl
