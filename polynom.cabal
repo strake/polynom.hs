@@ -1,5 +1,7 @@
 name:                polynom
 version:             0.1.0.0
+synopsis:            Polynomial types and operations
+license:             OtherLicense
 license-file:        LICENSE
 author:              M Farkas-Dyck
 maintainer:          strake888@gmail.com
@@ -25,3 +27,7 @@ test-suite test
                        tasty >= 0.11 && <0.12, smallcheck >=1.1 && <1.2, tasty-smallcheck >=0.8 && <0.9
   default-language:    Haskell2010
   ghc-options:         -threaded -with-rtsopts=-N
+
+source-repository head
+  type:                git
+  location:            https://github.com/strake/polynom.hs
