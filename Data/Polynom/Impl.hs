@@ -21,6 +21,8 @@ import Numeric.Semiring.Integral
 import Util
 
 -- | Polynomial in monomial exponents @α@ over coefficients @a@
+--
+--   Ord relation on @α@ must be a monomial order, so ∀ α β γ ∈ α . 1 ≤ α ∧ (α ≤ β → αγ ≤ βγ)
 newtype Polynom α a = Polynom (Map α a)
 
 instance (Ord α, Monoidal a) => Additive (Polynom α a) where
